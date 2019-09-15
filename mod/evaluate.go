@@ -16,7 +16,7 @@ func NewEvaluate(shape *Shape, unit *TetrisUnit) (this *Evaluate) {
 func (this *Evaluate) GetMaxHeigh() int {
 	var maxHeigh = 0
 	for i := this.tetrisUnit.GetLenX() - 1; i >= 0; i-- {
-		for j := range this.tetrisUnit.Vec[i] {
+		for j := 0; j < this.tetrisUnit.GetLenY(); j++ {
 			if this.tetrisUnit.Vec[i][j] > 0 {
 				return i
 			}

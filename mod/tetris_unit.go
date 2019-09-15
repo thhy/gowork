@@ -2,7 +2,6 @@ package mod
 
 import (
 	"log"
-	"fmt"
 )
 
 type TetrisUnit struct {
@@ -44,11 +43,10 @@ func (this *TetrisUnit) CheckAvailable(shape *Shape) bool {
 	for i := 0; i < len(vec); i++ {
 		for j := 0; j < len(vec[i]); j++ {
 			if vec[i][j] > 0 {
-				if shape.Posx - i >= this.Lenx || shape.PosY - j >= this.Leny || shape.Posx - i < 0 || shape.PosY - j < 0 {
-					fmt.Println("out of range", "shape posx:", shape.Posx + i, " shape posy:", shape.PosY + j, " this Lenx:", this.GetLenX(), " this lenY:", this.GetLenY())
+				if shape.Posx - i >= this.Lenx || shape.PosY + j >= this.Leny || shape.Posx - i < 0 || shape.PosY + j < 0 {
 					return false
 				}
-				if this.Vec[shape.Posx - i][shape.PosY - j] > 0 {
+				if this.Vec[shape.Posx - i][shape.PosY + j] > 0 {
 					return false
 				}
 			}
@@ -65,11 +63,10 @@ func (this *TetrisUnit) MergeShape(shape *Shape) bool {
 	for i := 0; i < len(vec); i++ {
 		for j := 0; j < len(vec[i]); j++ {
 			if vec[i][j] > 0 {
-				fmt.Println("x:", shape.Posx - i, " Y:", shape.PosY - j)
-				if this.Vec[shape.Posx - i][shape.PosY - j] > 0 {
+				if this.Vec[shape.Posx - i][shape.PosY + j] > 0 {
 					log.Fatal("invalid pos, please check available")
 				}
-				this.Vec[shape.Posx - i][shape.PosY - j] = vec[i][j]
+				this.Vec[shape.Posx - i][shape.PosY + j] = vec[i][j]
 			}
 		}
 	}

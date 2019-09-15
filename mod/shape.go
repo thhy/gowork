@@ -86,12 +86,26 @@ func (this *Shape) Count() int{
 
 func (this *Shape) Roate() {
 	count := this.Count()
-	this.Idx = (this.Idx + 1)/count
+	this.Idx = (this.Idx + 1)%count
 }
 
 type ShapePoints struct {
 	MShape Shape
 	Points float32
+	MTetrisUnit	TetrisUnit
 }
 
 type ShapePointss []*ShapePoints
+
+func (this ShapePointss) Len() int{
+	return len(this)
+}
+
+func (this ShapePointss) Swap(i, j int) {
+	this[i], this[j] = this[j], this[i]
+}
+
+func (this ShapePointss) Less(i, j int) bool{
+	return this[i].Points > this[j].Points
+}
+
